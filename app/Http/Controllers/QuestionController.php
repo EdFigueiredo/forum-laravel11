@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdateQuestionRequest;
 use App\Models\Category;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
@@ -29,9 +31,13 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUpdateQuestionRequest $request)
     {
-        //
+        $user = Auth::user();
+
+        $user->questions()->create($request->validated());
+
+        return redirect()->route('questions.create')->with('success','Pergunta criada com sucesso!');
     }
 
     /**
