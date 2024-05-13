@@ -37,7 +37,7 @@ class QuestionController extends Controller
 
         $user->questions()->create($request->validated());
 
-        return redirect()->route('questions.create')->with('success','Pergunta criada com sucesso!');
+        return redirect()->route('questions.create')->with('success', 'Pergunta criada com sucesso!');
     }
 
     /**

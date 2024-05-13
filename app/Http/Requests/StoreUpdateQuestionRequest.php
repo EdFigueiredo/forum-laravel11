@@ -23,9 +23,9 @@ class StoreUpdateQuestionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject' => ['required','string','min:10','max:255'],
+            'subject' => ['required', 'string', 'min:10', 'max:255'],
             'text' => 'required|string|min:10|max:255',
-            'category_id' => ['required','uuid', Rule::exists('categories','id')]
+            'category_id' => ['required', 'uuid', Rule::exists('categories', 'id')],
         ];
     }
 }
