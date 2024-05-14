@@ -15,7 +15,9 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        $questions = Question::all();
+
+        return view('question.index', compact('questions'));
     }
 
     /**
@@ -25,7 +27,7 @@ class QuestionController extends Controller
     {
         $categories = Category::all();
 
-        return view('question.index', compact('categories'));
+        return view('question.create', compact('categories'));
     }
 
     /**
@@ -37,7 +39,7 @@ class QuestionController extends Controller
 
         $user->questions()->create($request->validated());
 
-        return redirect()->route('questions.create')->with('success', 'Pergunta criada com sucesso!');
+        return redirect()->route('questions.index')->with('success', 'Pergunta criada com sucesso!');
     }
 
     /**
@@ -45,7 +47,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        //
+        return view('question.show', compact('question'));
     }
 
     /**
