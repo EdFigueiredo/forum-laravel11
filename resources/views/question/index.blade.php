@@ -21,8 +21,15 @@
         @forelse ($questions as $question)
             <tr>
                 <td>{{ $question->subject }}</td>
-                <td>{{ $question->content }}</td>
-                <td><a href="{{ route('questions.show', $question->id) }}">Visualizar</a></td>
+                <td>{{ $question->text }}</td>
+                <td>
+                    <a href="{{ route('questions.show', $question->id) }}">Visualizar</a>
+                    <button onclick="event.preventDefault(); if(confirm('Você realmente deseja excluir este item?')) document.getElementById('form-delete').submit()">Deletar</button>
+                    <form id="form-delete" action="{{ route('questions.destroy', $question->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                </td>
             </tr>
         @empty
             <tr>
