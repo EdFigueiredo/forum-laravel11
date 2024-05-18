@@ -14,6 +14,7 @@
         <tr>
             <th>Assunto</th>
             <th>Conteúdo</th>
+            <th>Categoria</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -22,13 +23,11 @@
             <tr>
                 <td>{{ $question->subject }}</td>
                 <td>{{ $question->text }}</td>
+                <td>{{ $question->category->name }}</td>
                 <td>
                     <a href="{{ route('questions.show', $question->id) }}">Visualizar</a>
-                    <button onclick="event.preventDefault(); if(confirm('Você realmente deseja excluir este item?')) document.getElementById('form-delete').submit()">Deletar</button>
-                    <form id="form-delete" action="{{ route('questions.destroy', $question->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                    </form>
+                    <a href="{{ route('questions.edit', $question->id) }}">Editar</a>
+                    
                 </td>
             </tr>
         @empty
