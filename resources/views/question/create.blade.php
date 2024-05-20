@@ -1,28 +1,20 @@
-<h1>Teste</h1>
+<x-app-layout>
+    <x-slot name="header">
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('Criar Pergunta') }}
+            </h2>
+            <x-link-button link="questions.index">Listagem de Perguntas</x-link-button>
+        </div>
+    </x-slot>
 
-@if ($errors->any())
-    <div>
-        <ul>
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+    <x-main-layout>
+        <x-error-message />
 
-<a href="{{ route('questions.index') }}"> Listagem de perguntas</a><br>
+        <form action="{{ route('questions.store') }}" method="post">
+            @csrf
+            @include('question.partials.form')
+        </form>
 
-<br>
-<br>
-<form action="{{ route('questions.store') }}" method="POST">
-    @csrf
-    <input type="text" name="subject"><br>
-    <textarea name="text" id="" cols="30" rows="10"></textarea><br>
-    <select name="category_id" id="">
-        @foreach ($categories as $category)
-        <option value="{{ $category->id }}">{{ $category->name }}</option>
-        @endforeach
-    </select><br>
-    <button type="submit">Enviar</button>
-
-</form>
+    </x-main-layout>
+</x-app-layout>
