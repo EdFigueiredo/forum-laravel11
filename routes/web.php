@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/questions', QuestionController::class);
 
     Route::get('/forum', [ForumController::class, 'index'])->name('forum.index');
+    Route::get('/forum/{question}',[ForumController::class, 'show'])->name('forum.show');
 });
 
 require __DIR__.'/auth.php';
