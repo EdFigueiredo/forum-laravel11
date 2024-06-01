@@ -13,4 +13,13 @@ class ForumController extends Controller
 
         return view('forum.index', compact('questions'));
     }
+
+    public function show(string $id)
+    {
+        if(! $question = Question::find($id)){
+            abort(404);
+        }
+
+        return view('forum.show', compact('question'));
+    }
 }
