@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\QuestionReplied;
 use App\Http\Requests\StoreReplyQuestion;
+use App\Mail\QuestionRepliedMail;
 use App\Models\Question;
 use App\Models\ReplyQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ForumController extends Controller
 {
@@ -33,10 +36,14 @@ class ForumController extends Controller
             abort(404);
         }
 
-        ReplyQuestion::create([
+        $createdReply = ReplyQuestion::create([
             'user_id' => Auth::id(),
             ...$request->validated()
         ]);
+
+        QuestionReplied::dispatch($question->user, $createdReply);
+
+        //Mail::to($question->user)->send(new QuestionRepliedMail);
 
         return redirect()->back()->with('success', 'Pergunta respondida com sucesso!');
     }
